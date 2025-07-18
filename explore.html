@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore career paths and connect with alumni and industry experts on Gurukul - Your gateway to informed career decisions">
+    <meta name="keywords" content="career guidance, alumni network, industry experts, career paths, college advice, mentorship">
+    <meta name="author" content="Gurukul Education Platform">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Explore Careers & Connect - Gurukul</title>
+    <style>
+        /* CSS Custom Properties */
+        :root {
+            --primary-color: #04AA6D;
+            --secondary-color: #f44336;
+            --accent-color: #f7dc99;
+            --text-color: #333;
+            --bg-color: rgba(255, 239, 198, 1);
+            --header-bg: #f3f3f3;
+            --footer-bg: rgba(38, 50, 56, 1);
+            --modal-bg: rgba(0, 0, 0, 0.4);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-top: 100px;
+        }
+
+        /* Form Styles */
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border: 2px solid var(--accent-color);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(4, 170, 109, 0.1);
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: var(--bg-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 8px 16px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #038855;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d32f2f;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Filter Styles */
+        .filter-btn {
+            padding: 8px 16px;
+            margin: 4px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        /* Profile Badge */
+        .profile-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-alumni {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-expert {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        /* Search Styles */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 24px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(4, 170, 109, 0.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-bg);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 4px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            background-color: #f0f0f0;
+            color: #666;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 120px;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+        }
+
+        /* Rating Stars */
+        .stars {
+            color: #ffd700;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+        }
+
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a href="index.html" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 logo">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" 
+                     stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" 
+                     viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="ml-3 text-xl" style="color: var(--primary-color);">Gurukul</span>
+            </a>
+            <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center" 
+                 aria-label="Main navigation">
+                <a href="index.html" class="nav-link mr-5">Home</a>
+                <a href="explore.html" class="nav-link active mr-5">Explore</a>
+                <a href="#" class="nav-link mr-5">Profile</a>
+                <a href="community.html" class="nav-link mr-5">Community</a>
+            </nav>
+            <div class="flex gap-4">
+                <button onclick="openModal('loginModal')" class="btn btn-outline" type="button">Login</button>
+                <button onclick="openModal('registerModal')" class="btn btn-primary" type="button">Join Now</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-16 bg-gradient-to-r from-indigo-50 to-blue-50">
+            <div class="container mx-auto px-5 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6" style="color: var(--primary-color);">
+                    Explore Your Future
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Connect with alumni and industry experts to discover career paths, get college insights, 
+                    and make informed decisions about your future.
+                </p>
+                
+                <!-- Search Bar -->
+                <div class="search-container mb-8">
+                    <input type="text" id="searchInput" class="search-input" 
+                           placeholder="Search by career field, college, or expertise...">
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" style="color: var(--primary-color);">500+</div>
+                        <div class="text-gray-600">Alumni</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" style="color: var(--primary-color);">200+</div>
+                        <div class="text-gray-600">Industry Experts</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" style="color: var(--primary-color);">150+</div>
+                        <div class="text-gray-600">Career Paths</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" style="color: var(--primary-color);">50+</div>
+                        <div class="text-gray-600">Colleges</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="py-8 bg-white border-b">
+            <div class="container mx-auto px-5">
+                <div class="flex flex-wrap justify-center items-center gap-2">
+                    <span class="text-gray-600 font-medium mr-4">Filter by:</span>
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="alumni">Alumni</button>
+                    <button class="filter-btn" data-filter="experts">Industry Experts</button>
+                    <button class="filter-btn" data-filter="tech">Technology</button>
+                    <button class="filter-btn" data-filter="business">Business</button>
+                    <button class="filter-btn" data-filter="healthcare">Healthcare</button>
+                    <button class="filter-btn" data-filter="engineering">Engineering</button>
+                    <button class="filter-btn" data-filter="arts">Arts & Design</button>
+                    <button class="filter-btn" data-filter="environment">Environment</button>
+                    <button class="filter-btn" data-filter="aerospace">Aerospace</button>
+                    <button class="filter-btn" data-filter="gaming">Gaming</button>
+                    <button class="filter-btn" data-filter="sports">Sports</button>
+                    <button class="filter-btn" data-filter="aviation">Aviation</button>
+                    <button class="filter-btn" data-filter="psychology">Psychology</button>
+                    <button class="filter-btn" data-filter="marine">Marine Science</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mentors Grid -->
+        <section class="py-16">
+            <div class="container mx-auto px-5">
+                <div id="mentorGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Mentor cards will be dynamically generated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Paths Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-5">
+                <h2 class="text-3xl font-bold text-center mb-12" style="color: var(--primary-color);">
+                    Popular Career Paths
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Software Development</h3>
+                        <p class="text-gray-600 mb-4">Build applications, websites, and software solutions</p>
+                        <button class="btn btn-outline" onclick="showCareerPath('software')">Explore Path</button>
+                    </div>
+                    
+                    <div class="card p-6 text-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Data Science</h3>
+                        <p class="text-gray-600 mb-4">Analyze data to drive business decisions</p>
+                        <button class="btn btn-outline" onclick="showCareerPath('datascience')">Explore Path</button>
+                    </div>
+                    
+                    <div class="card p-6 text-center">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Business Management</h3>
+                        <p class="text-gray-600 mb-4">Lead teams and drive organizational success</p>
+                        <button class="btn btn-outline" onclick="showCareerPath('business')">Explore Path</button>
+                    </div>
+
+                    <div class="card p-6 text-center">
+                        <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Cybersecurity</h3>
+                        <p class="text-gray-600 mb-4">Protect digital assets and infrastructure</p>
+                        <button class="btn btn-outline" onclick="showCareerPath('cybersecurity')">Explore Path</button>
+                    </div>
+
+                    <div class="card p-6 text-center">
+                        <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Environmental Science</h3>
+                        <p class="text-gray-600 mb-4">Create sustainable solutions for our planet</p>
+                        <button class="btn btn-outline" onclick="showCareerPath('environment')">Explore Path</button>
+                    </div>
+
+                    <div class="card p-6 text-center">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Aerospace Engineering</h3>
+                        <p class="text-gray-600 mb-4">Design spacecraft and aviation systems</p>
+                        <button class="btn btn-outline" onclick="showCareerPath('aerospace')">Explore Path</button>
+                    </div>
+
+                    <div class="card p-6 text-center">
+                        <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1a3 3 0 000-6h-1m4 6V4a3 3 0 114 0v4M6 16a3 3 0 100-6 3 3 0 000 6z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">UX Research</h3>
+                        <p class="text-gray-600 mb-4">Understand users to create better experiences</p>
+                        <button class="btn btn-outline" onclick="showCareerPath('uxresearch')">Explore Path</button>
+                    </div>
+
+                    <div class="card p-6 text-center">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Game Development</h3>
+                        <p class="text-gray-600 mb-4">Create immersive gaming experiences</p>
+                        <button class="btn btn-outline" onclick="showCareerPath('gaming')">Explore Path</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-white body-font" style="background-color: var(--footer-bg);">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap md:text-left text-center">
+                <div class="lg:w-1/4 md:w-1/2 w-full px-4 mb-8">
+                    <h3 class="title-font font-medium text-white tracking-widest text-sm mb-3">CAREER PATHS</h3>
+                    <ul class="mb-10" aria-label="Career categories">
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Software Development</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Data Science</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Cybersecurity</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Environmental Science</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/4 md:w-1/2 w-full px-4 mb-8">
+                    <h3 class="title-font font-medium text-white tracking-widest text-sm mb-3">MENTORSHIP</h3>
+                    <ul class="mb-10" aria-label="Mentorship links">
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Find Alumni</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Industry Experts</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Schedule Sessions</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Career Guidance</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/4 md:w-1/2 w-full px-4 mb-8">
+                    <h3 class="title-font font-medium text-white tracking-widest text-sm mb-3">SUPPORT</h3>
+                    <ul class="mb-10" aria-label="Support links">
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Help Center</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Contact Us</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">FAQ</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Community</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/4 md:w-1/2 w-full px-4 mb-8">
+                    <h3 class="title-font font-medium text-white tracking-widest text-sm mb-3">GET STARTED</h3>
+                    <div class="flex flex-col">
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-300 mb-4">
+                                Join our community of learners and mentors
+                            </p>
+                            <div class="flex flex-col gap-3">
+                                <button onclick="openModal('loginModal')" class="btn btn-outline text-center" type="button">
+                                    🔐 Login
+                                </button>
+                                <button onclick="openModal('registerModal')" class="btn btn-primary text-center" type="button">
+                                    📝 Register
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm">
+                            Connect with 500+ alumni and 200+ industry experts
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="bg-gray-800">
+            <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
+                <div class="flex title-font font-medium items-center md:justify-start justify-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" 
+                         stroke-linejoin="round" stroke-width="2" class="w-8 h-8 text-white p-1 bg-indigo-500 rounded-full" 
+                         viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span class="ml-3 text-xl" style="color: #04AA6D;">Gurukul</span>
+                </div>
+                <p class="text-sm text-gray-400 sm:ml-6 sm:mt-0 mt-4">
+                    © 2024 Gurukul Educational Platform. All rights reserved.
+                </p>
+                <div class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start" role="list" aria-label="Social media links">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Facebook">
+                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            class="w-5 h-5" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="ml-3 text-gray-400 hover:text-white transition-colors duration-200" aria-label="Twitter">
+                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            class="w-5 h-5" viewBox="0 0 24 24">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="ml-3 text-gray-400 hover:text-white transition-colors duration-200" aria-label="Instagram">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="ml-3 text-gray-400 hover:text-white transition-colors duration-200" aria-label="LinkedIn">
+                        <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                            <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                            <circle cx="4" cy="4" r="2" stroke="none"></circle>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mentor Profile Modal -->
+    <div id="mentorModal" class="modal" role="dialog" aria-labelledby="mentorTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="mentorTitle" class="text-2xl font-semibold">Mentor Profile</h2>
+                <button type="button" class="close-btn" onclick="closeModal('mentorModal')" aria-label="Close modal">
+                    ×
+                </button>
+            </div>
+            <div id="mentorDetails" class="modal-body">
+                <!-- Mentor details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Path Modal -->
+    <div id="careerModal" class="modal" role="dialog" aria-labelledby="careerTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="careerTitle" class="text-2xl font-semibold">Career Path</h2>
+                <button type="button" class="close-btn" onclick="closeModal('careerModal')" aria-label="Close modal">
+                    ×
+                </button>
+            </div>
+            <div id="careerDetails" class="modal-body">
+                <!-- Career details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="loginTitle" class="text-xl font-semibold">Welcome Back</h2>
+                <button type="button" class="close-btn" onclick="closeModal('loginModal')" aria-label="Close login modal">
+                    ×
+                </button>
+            </div>
+            <form class="modal-body" action="#" method="post" novalidate>
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="login-username" class="block text-sm font-medium mb-2">Username</label>
+                    <input type="text" id="login-username" name="username" class="form-input" 
+                           placeholder="Enter your username" required aria-describedby="username-error">
+                    <div id="username-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="login-password" class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="login-password" name="password" class="form-input" 
+                           placeholder="Enter your password" required aria-describedby="password-error">
+                    <div id="password-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+
+                <div class="flex items-center justify-between mb-6">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="remember" class="mr-2">
+                        <span class="text-sm">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+                </div>
+
+                <div class="flex gap-3">
+                    <button type="submit" class="btn btn-primary flex-1">Sign In</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('loginModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal" role="dialog" aria-labelledby="registerTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="registerTitle" class="text-xl font-semibold">Create Account</h2>
+                <button type="button" class="close-btn" onclick="closeModal('registerModal')" aria-label="Close register modal">
+                    ×
+                </button>
+            </div>
+            <form class="modal-body" action="#" method="post" novalidate>
+                <p class="text-gray-600 mb-6">Join thousands of learners advancing their careers</p>
+                
+                <div class="mb-4">
+                    <label for="register-email" class="block text-sm font-medium mb-2">Email Address</label>
+                    <input type="email" id="register-email" name="email" class="form-input" 
+                           placeholder="Enter your email" required aria-describedby="email-error">
+                    <div id="email-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="register-password" class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="register-password" name="password" class="form-input" 
+                           placeholder="Create a password" required aria-describedby="reg-password-error">
+                    <div id="reg-password-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="register-confirm-password" class="block text-sm font-medium mb-2">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" name="confirmPassword" class="form-input" 
+                           placeholder="Confirm your password" required aria-describedby="confirm-password-error">
+                    <div id="confirm-password-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="flex items-start">
+                        <input type="checkbox" name="terms" required class="mr-2 mt-1">
+                        <span class="text-sm">
+                            I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> 
+                            and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="flex gap-3">
+                    <button type="submit" class="btn btn-primary flex-1">Create Account</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('registerModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for mentors
+        const mentors = [
+            {
+                id: 1,
+                name: "Sarah Johnson",
+                type: "alumni",
+                role: "Senior Software Engineer",
+                company: "Google",
+                college: "IIT Delhi",
+                graduation: "2018",
+                expertise: ["Software Development", "Machine Learning", "Career Guidance"],
+                category: "tech",
+                rating: 4.9,
+                sessions: 150,
+                image: "https://via.placeholder.com/100x100/4A90E2/FFFFFF?text=SJ",
+                bio: "Experienced software engineer with expertise in full-stack development and machine learning. Passionate about helping students navigate their tech careers.",
+                achievements: ["Led team of 10 engineers", "Published 5 research papers", "Speaker at tech conferences"],
+                collegeTips: "IIT Delhi has excellent placement opportunities. Focus on coding competitions and open source contributions."
+            },
+            {
+                id: 2,
+                name: "Dr. Rajesh Kumar",
+                type: "expert",
+                role: "Chief Data Scientist",
+                company: "Microsoft",
+                expertise: ["Data Science", "AI/ML", "Research"],
+                category: "tech",
+                rating: 4.8,
+                sessions: 89,
+                image: "https://via.placeholder.com/100x100/50C878/FFFFFF?text=RK",
+                bio: "Data science leader with 15 years of experience in AI and machine learning. Mentored over 100 professionals in their data science journey.",
+                achievements: ["Led AI initiatives worth $50M", "Author of 'Practical Data Science'", "PhD in Computer Science"]
+            },
+            {
+                id: 3,
+                name: "Priya Sharma",
+                type: "alumni",
+                role: "Product Manager",
+                company: "Amazon",
+                college: "BITS Pilani",
+                graduation: "2020",
+                expertise: ["Product Management", "Business Strategy", "Startup Consulting"],
+                category: "business",
+                rating: 4.7,
+                sessions: 67,
+                image: "https://via.placeholder.com/100x100/FF6B6B/FFFFFF?text=PS",
+                bio: "Product management expert who transitioned from engineering to business. Helping students understand product roles and business strategy.",
+                achievements: ["Launched 3 successful products", "MBA from ISB", "Ex-startup founder"],
+                collegeTips: "BITS Pilani offers great flexibility. Take advantage of practice school to gain real industry experience."
+            },
+            {
+                id: 4,
+                name: "Dr. Anita Gupta",
+                type: "expert",
+                role: "Cardiologist",
+                company: "AIIMS Delhi",
+                expertise: ["Medical Career Guidance", "NEET Preparation", "Medical Research"],
+                category: "healthcare",
+                rating: 4.9,
+                sessions: 234,
+                image: "https://via.placeholder.com/100x100/9B59B6/FFFFFF?text=AG",
+                bio: "Senior cardiologist and medical educator. Passionate about guiding students through medical career paths and NEET preparation strategies.",
+                achievements: ["20+ years in cardiology", "Published 50+ research papers", "Medical education reformer"]
+            },
+            {
+                id: 5,
+                name: "Arjun Mehta",
+                type: "alumni",
+                role: "Mechanical Engineer",
+                company: "Tesla",
+                college: "NIT Trichy",
+                graduation: "2019",
+                expertise: ["Mechanical Engineering", "Automotive", "Electric Vehicles"],
+                category: "engineering",
+                rating: 4.6,
+                sessions: 78,
+                image: "https://via.placeholder.com/100x100/3498DB/FFFFFF?text=AM",
+                bio: "Mechanical engineer working on cutting-edge electric vehicle technology. Excited to share insights about engineering careers and college life.",
+                achievements: ["Patent holder", "Tesla Model S team member", "Robotics competition winner"],
+                collegeTips: "NIT Trichy has strong industry connections. Participate in technical festivals and build practical projects."
+            },
+            {
+                id: 6,
+                name: "Maya Patel",
+                type: "expert",
+                role: "Creative Director",
+                company: "Ogilvy",
+                expertise: ["Graphic Design", "Creative Strategy", "Brand Development"],
+                category: "arts",
+                rating: 4.8,
+                sessions: 92,
+                image: "https://via.placeholder.com/100x100/E74C3C/FFFFFF?text=MP",
+                bio: "Award-winning creative director with expertise in brand strategy and visual design. Mentoring the next generation of creative professionals.",
+                achievements: ["Cannes Lions winner", "Rebranded 50+ companies", "Design thinking expert"]
+            },
+            {
+                id: 7,
+                name: "Dr. Vikram Singh",
+                type: "expert",
+                role: "Cybersecurity Specialist",
+                company: "Palantir Technologies",
+                expertise: ["Ethical Hacking", "Digital Forensics", "Incident Response", "Security Architecture"],
+                category: "tech",
+                rating: 4.9,
+                sessions: 145,
+                image: "https://via.placeholder.com/100x100/2C3E50/FFFFFF?text=VS",
+                bio: "Leading cybersecurity expert with 12 years of experience in protecting critical infrastructure. Specialized in threat hunting and advanced persistent threat analysis.",
+                achievements: ["Discovered 15+ zero-day vulnerabilities", "TEDx speaker on digital privacy", "Certified Ethical Hacker (CEH)"]
+            },
+            {
+                id: 8,
+                name: "Sneha Reddy",
+                type: "alumni", 
+                role: "UX Research Lead",
+                company: "Netflix",
+                college: "NID Ahmedabad",
+                graduation: "2017",
+                expertise: ["User Experience Research", "Design Thinking", "Behavioral Psychology"],
+                category: "arts",
+                rating: 4.7,
+                sessions: 89,
+                image: "https://via.placeholder.com/100x100/8E44AD/FFFFFF?text=SR",
+                bio: "UX researcher passionate about understanding human behavior and creating intuitive digital experiences. Bridging the gap between psychology and technology.",
+                achievements: ["Led research for 50M+ users", "Published UX research methodologies", "Design thinking workshop facilitator"],
+                collegeTips: "NID Ahmedabad offers unique interdisciplinary approach. Collaborate across departments and build a strong portfolio early."
+            },
+            {
+                id: 9,
+                name: "Captain Rohit Malhotra",
+                type: "expert",
+                role: "Aviation Safety Inspector",
+                company: "Directorate General of Civil Aviation",
+                expertise: ["Aviation Safety", "Aircraft Maintenance", "Regulatory Compliance", "Risk Assessment"],
+                category: "aviation",
+                rating: 4.8,
+                sessions: 76,
+                image: "https://via.placeholder.com/100x100/1ABC9C/FFFFFF?text=RM",
+                bio: "Former Indian Air Force pilot turned aviation safety expert. Ensuring the highest safety standards in commercial aviation with 20+ years of flying experience.",
+                achievements: ["25,000+ flight hours", "Aviation safety award recipient", "Authored aviation safety protocols"]
+            },
+            {
+                id: 10,
+                name: "Dr. Meera Joshi",
+                type: "expert",
+                role: "Environmental Scientist",
+                company: "UN Environment Programme",
+                expertise: ["Climate Change", "Sustainable Development", "Environmental Policy", "Carbon Footprint"],
+                category: "environment",
+                rating: 4.9,
+                sessions: 134,
+                image: "https://via.placeholder.com/100x100/27AE60/FFFFFF?text=MJ",
+                bio: "Environmental scientist working on global climate initiatives. Passionate about creating sustainable solutions for environmental challenges.",
+                achievements: ["IPCC report contributor", "Climate policy advisor to governments", "Published 40+ research papers"]
+            },
+            {
+                id: 11,
+                name: "Arjit Tandon",
+                type: "alumni",
+                role: "Game Developer",
+                company: "Ubisoft",
+                college: "IIIT Bangalore",
+                graduation: "2019",
+                expertise: ["Game Development", "Unity Engine", "3D Graphics", "Game Design"],
+                category: "gaming",
+                rating: 4.6,
+                sessions: 67,
+                image: "https://via.placeholder.com/100x100/F39C12/FFFFFF?text=AT",
+                bio: "Game developer creating immersive gaming experiences. Specialized in gameplay mechanics and player engagement systems.",
+                achievements: ["Developed games with 10M+ downloads", "Unity certified expert", "Game jam winner"],
+                collegeTips: "IIIT Bangalore has strong computer graphics program. Participate in game jams and build an impressive portfolio."
+            },
+            {
+                id: 12,
+                name: "Dr. Kavita Nair",
+                type: "expert",
+                role: "Space Systems Engineer",
+                company: "ISRO",
+                expertise: ["Satellite Technology", "Space Missions", "Orbital Mechanics", "Rocket Propulsion"],
+                category: "aerospace",
+                rating: 4.9,
+                sessions: 98,
+                image: "https://via.placeholder.com/100x100/9B59B6/FFFFFF?text=KN",
+                bio: "Space systems engineer working on India's ambitious space missions. Leading satellite design and mission planning for lunar and Mars missions.",
+                achievements: ["Chandrayaan-3 mission team", "Mars Orbiter Mission contributor", "Space technology innovator"]
+            },
+            {
+                id: 13,
+                name: "Ravi Kumar",
+                type: "alumni",
+                role: "Sports Analyst",
+                company: "ESPN",
+                college: "Symbiosis Institute",
+                graduation: "2018",
+                expertise: ["Sports Analytics", "Data Visualization", "Performance Analysis", "Sports Broadcasting"],
+                category: "sports",
+                rating: 4.5,
+                sessions: 54,
+                image: "https://via.placeholder.com/100x100/E67E22/FFFFFF?text=RK",
+                bio: "Sports analyst combining passion for sports with data science. Creating insights that help teams and broadcasters tell compelling stories.",
+                achievements: ["IPL analytics expert", "Cricket World Cup analyst", "Sports media content creator"],
+                collegeTips: "Symbiosis offers great sports management programs. Combine your passion for sports with analytical skills."
+            },
+            {
+                id: 14,
+                name: "Dr. Preeti Sharma",
+                type: "expert",
+                role: "Forensic Psychologist",
+                company: "CBI",
+                expertise: ["Criminal Psychology", "Behavioral Analysis", "Legal Psychology", "Investigative Techniques"],
+                category: "psychology",
+                rating: 4.8,
+                sessions: 112,
+                image: "https://via.placeholder.com/100x100/34495E/FFFFFF?text=PS",
+                bio: "Forensic psychologist helping solve complex criminal cases through behavioral analysis. Expert in criminal profiling and investigative psychology.",
+                achievements: ["Solved 200+ criminal cases", "Expert witness in courts", "Criminal behavior research pioneer"]
+            },
+            {
+                id: 15,
+                name: "Akash Verma",
+                type: "alumni",
+                role: "Renewable Energy Engineer",
+                company: "Tata Power Solar",
+                college: "IIT Roorkee",
+                graduation: "2020",
+                expertise: ["Solar Energy", "Wind Power", "Energy Storage", "Grid Integration"],
+                category: "environment",
+                rating: 4.7,
+                sessions: 71,
+                image: "https://via.placeholder.com/100x100/16A085/FFFFFF?text=AV",
+                bio: "Renewable energy engineer working on India's clean energy transition. Designing and implementing large-scale solar and wind projects.",
+                achievements: ["500MW solar project lead", "Clean energy innovation award", "Sustainable technology researcher"],
+                collegeTips: "IIT Roorkee has excellent renewable energy research facilities. Focus on practical projects and industry internships."
+            },
+            {
+                id: 16,
+                name: "Dr. Sanjana Roy",
+                type: "expert",
+                role: "Marine Biologist",
+                company: "National Institute of Oceanography",
+                expertise: ["Marine Ecosystems", "Ocean Conservation", "Marine Biotechnology", "Underwater Research"],
+                category: "marine",
+                rating: 4.9,
+                sessions: 87,
+                image: "https://via.placeholder.com/100x100/3498DB/FFFFFF?text=SR",
+                bio: "Marine biologist exploring the mysteries of ocean life. Leading research on coral reef conservation and marine biodiversity.",
+                achievements: ["Discovered 5 new marine species", "Ocean conservation advocate", "Deep-sea expedition leader"]
+            }
+        ];
+
+        // Career paths data
+        const careerPaths = {
+            software: {
+                title: "Software Development",
+                description: "Build the digital world with code",
+                roadmap: [
+                    "Learn programming fundamentals (Python/Java/JavaScript)",
+                    "Master data structures and algorithms",
+                    "Build projects and contribute to open source",
+                    "Gain experience with frameworks and tools",
+                    "Specialize in frontend, backend, or full-stack"
+                ],
+                skills: ["Programming", "Problem Solving", "System Design", "Version Control"],
+                colleges: ["IIT Delhi", "IIT Bombay", "BITS Pilani", "IIIT Hyderabad"],
+                salaryRange: "₹6-50 LPA",
+                jobRoles: ["Software Engineer", "Full Stack Developer", "DevOps Engineer", "Solution Architect"]
+            },
+            datascience: {
+                title: "Data Science",
+                description: "Turn data into insights and drive decisions",
+                roadmap: [
+                    "Learn statistics and mathematics",
+                    "Master Python/R programming",
+                    "Understand machine learning algorithms",
+                    "Work with databases and big data tools",
+                    "Develop domain expertise"
+                ],
+                skills: ["Statistics", "Programming", "Machine Learning", "Data Visualization"],
+                colleges: ["ISI Kolkata", "IIT Kanpur", "IIM Bangalore", "IISC Bangalore"],
+                salaryRange: "₹8-60 LPA",
+                jobRoles: ["Data Scientist", "ML Engineer", "Data Analyst", "Research Scientist"]
+            },
+            business: {
+                title: "Business Management",
+                description: "Lead organizations and drive strategic growth",
+                roadmap: [
+                    "Develop leadership and communication skills",
+                    "Understand business fundamentals",
+                    "Gain experience in different business functions",
+                    "Pursue MBA or relevant certifications",
+                    "Specialize in your area of interest"
+                ],
+                skills: ["Leadership", "Strategic Thinking", "Communication", "Financial Analysis"],
+                colleges: ["IIM Ahmedabad", "IIM Bangalore", "ISB Hyderabad", "XLRI Jamshedpur"],
+                salaryRange: "₹10-80 LPA",
+                jobRoles: ["Product Manager", "Business Analyst", "Management Consultant", "Operations Manager"]
+            },
+            cybersecurity: {
+                title: "Cybersecurity",
+                description: "Protect digital assets and critical infrastructure",
+                roadmap: [
+                    "Learn networking and system administration basics",
+                    "Understand common vulnerabilities and threats",
+                    "Practice ethical hacking and penetration testing",
+                    "Get security certifications (CEH, CISSP, etc.)",
+                    "Specialize in areas like incident response or forensics"
+                ],
+                skills: ["Network Security", "Ethical Hacking", "Risk Assessment", "Incident Response"],
+                colleges: ["IIT Delhi", "IIIT Hyderabad", "NIT Surathkal", "Amity University"],
+                salaryRange: "₹8-70 LPA",
+                jobRoles: ["Security Analyst", "Ethical Hacker", "Security Architect", "Incident Response Specialist"]
+            },
+            environment: {
+                title: "Environmental Science",
+                description: "Create sustainable solutions for our planet",
+                roadmap: [
+                    "Study environmental science fundamentals",
+                    "Learn about climate change and ecosystems",
+                    "Gain experience with environmental monitoring tools",
+                    "Understand policy and regulatory frameworks",
+                    "Specialize in areas like renewable energy or conservation"
+                ],
+                skills: ["Environmental Assessment", "Research", "Policy Analysis", "Sustainability"],
+                colleges: ["Jadavpur University", "JNU Delhi", "TERI University", "IIT Roorkee"],
+                salaryRange: "₹4-30 LPA",
+                jobRoles: ["Environmental Consultant", "Conservation Scientist", "Climate Analyst", "Sustainability Manager"]
+            },
+            aerospace: {
+                title: "Aerospace Engineering",
+                description: "Design spacecraft and aviation systems",
+                roadmap: [
+                    "Master mathematics and physics fundamentals",
+                    "Learn aerospace engineering principles",
+                    "Gain experience with CAD and simulation software",
+                    "Work on projects related to aircraft or spacecraft",
+                    "Specialize in areas like propulsion or avionics"
+                ],
+                skills: ["Aerodynamics", "Propulsion Systems", "Flight Dynamics", "Materials Science"],
+                colleges: ["IIT Bombay", "IIT Kanpur", "IIT Madras", "IIST Thiruvananthapuram"],
+                salaryRange: "₹8-45 LPA",
+                jobRoles: ["Aerospace Engineer", "Flight Test Engineer", "Satellite Systems Engineer", "Propulsion Engineer"]
+            },
+            uxresearch: {
+                title: "UX Research",
+                description: "Understand users to create better experiences",
+                roadmap: [
+                    "Learn human psychology and behavior",
+                    "Master research methodologies",
+                    "Practice user interviewing and testing",
+                    "Learn design thinking and prototyping",
+                    "Build portfolio with real user research projects"
+                ],
+                skills: ["User Research", "Psychology", "Data Analysis", "Design Thinking"],
+                colleges: ["NID Ahmedabad", "IIITD Delhi", "Srishti Bangalore", "MIT Institute of Design"],
+                salaryRange: "₹6-40 LPA",
+                jobRoles: ["UX Researcher", "User Experience Designer", "Design Researcher", "Product Designer"]
+            },
+            gaming: {
+                title: "Game Development",
+                description: "Create immersive gaming experiences",
+                roadmap: [
+                    "Learn programming languages (C#, C++, JavaScript)",
+                    "Master game engines (Unity, Unreal Engine)",
+                    "Understand game design principles",
+                    "Build and publish indie games",
+                    "Specialize in areas like graphics, AI, or gameplay"
+                ],
+                skills: ["Programming", "Game Design", "3D Graphics", "Game Engines"],
+                colleges: ["IIIT Bangalore", "VIT Vellore", "SRM University", "Amity University"],
+                salaryRange: "₹4-35 LPA",
+                jobRoles: ["Game Developer", "Game Designer", "3D Artist", "Game Producer"]
+            }
+        };
+
+        // Initialize the page - Remove this duplicate
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     renderMentors();
+        //     setupFilters();
+        //     setupSearch();
+        // });
+
+        // Render mentor cards
+        function renderMentors(filteredMentors = mentors) {
+            const grid = document.getElementById('mentorGrid');
+            grid.innerHTML = '';
+
+            filteredMentors.forEach(mentor => {
+                const card = createMentorCard(mentor);
+                grid.appendChild(card);
+            });
+        }
+
+        // Create mentor card element
+        function createMentorCard(mentor) {
+            const div = document.createElement('div');
+            div.className = 'card p-6 mentor-card';
+            div.dataset.category = mentor.category;
+            div.dataset.type = mentor.type;
+
+            div.innerHTML = `
+                <div class="flex items-start mb-4">
+                    <img src="${mentor.image}" alt="${mentor.name}" class="w-16 h-16 rounded-full mr-4">
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-semibold">${mentor.name}</h3>
+                            <span class="profile-badge ${mentor.type === 'alumni' ? 'badge-alumni' : 'badge-expert'}">
+                                ${mentor.type === 'alumni' ? '🎓 Alumni' : '💼 Expert'}
+                            </span>
+                        </div>
+                        <p class="text-gray-600 font-medium">${mentor.role}</p>
+                        <p class="text-gray-500">${mentor.company}</p>
+                        ${mentor.college ? `<p class="text-sm text-gray-500">🏫 ${mentor.college} (${mentor.graduation})</p>` : ''}
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex items-center mb-2">
+                        <div class="stars mr-2">
+                            ${'★'.repeat(Math.floor(mentor.rating))}${'☆'.repeat(5 - Math.floor(mentor.rating))}
+                        </div>
+                        <span class="text-sm text-gray-600">${mentor.rating} (${mentor.sessions} sessions)</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="flex flex-wrap gap-2">
+                        ${mentor.expertise.slice(0, 3).map(skill => 
+                            `<span class="px-2 py-1 bg-gray-100 rounded-full text-xs">${skill}</span>`
+                        ).join('')}
+                        ${mentor.expertise.length > 3 ? `<span class="text-xs text-gray-500">+${mentor.expertise.length - 3} more</span>` : ''}
+                    </div>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="showMentorProfile(${mentor.id})" class="btn btn-primary flex-1">
+                        View Profile
+                    </button>
+                    <button onclick="connectWithMentor(${mentor.id})" class="btn btn-outline">
+                        Connect
+                    </button>
+                </div>
+            `;
+
+            return div;
+        }
+
+        // Setup filter functionality
+        function setupFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    filterMentors(filter);
+                });
+            });
+        }
+
+        // Filter mentors based on category
+        function filterMentors(filter) {
+            let filtered = mentors;
+            
+            if (filter !== 'all') {
+                if (filter === 'alumni' || filter === 'experts') {
+                    filtered = mentors.filter(mentor => mentor.type === (filter === 'experts' ? 'expert' : 'alumni'));
+                } else {
+                    filtered = mentors.filter(mentor => mentor.category === filter);
+                }
+            }
+            
+            renderMentors(filtered);
+        }
+
+        // Setup search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    const query = this.value.toLowerCase();
+                    const filtered = mentors.filter(mentor => 
+                        mentor.name.toLowerCase().includes(query) ||
+                        mentor.role.toLowerCase().includes(query) ||
+                        mentor.company.toLowerCase().includes(query) ||
+                        (mentor.college && mentor.college.toLowerCase().includes(query)) ||
+                        mentor.expertise.some(skill => skill.toLowerCase().includes(query))
+                    );
+                    renderMentors(filtered);
+                }, 300);
+            });
+        }
+
+        // Show mentor profile modal
+        function showMentorProfile(mentorId) {
+            const mentor = mentors.find(m => m.id === mentorId);
+            if (!mentor) return;
+
+            const modal = document.getElementById('mentorModal');
+            const title = document.getElementById('mentorTitle');
+            const details = document.getElementById('mentorDetails');
+
+            title.textContent = mentor.name;
+            
+            details.innerHTML = `
+                <div class="flex items-start mb-6">
+                    <img src="${mentor.image}" alt="${mentor.name}" class="w-20 h-20 rounded-full mr-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-2">${mentor.name}</h3>
+                        <p class="text-lg text-gray-600 mb-1">${mentor.role}</p>
+                        <p class="text-gray-500 mb-2">${mentor.company}</p>
+                        ${mentor.college ? `<p class="text-sm text-gray-500">🎓 ${mentor.college} (${mentor.graduation})</p>` : ''}
+                        <div class="flex items-center mt-2">
+                            <div class="stars mr-2">
+                                ${'★'.repeat(Math.floor(mentor.rating))}${'☆'.repeat(5 - Math.floor(mentor.rating))}
+                            </div>
+                            <span class="text-sm text-gray-600">${mentor.rating} (${mentor.sessions} sessions completed)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-2">About</h4>
+                    <p class="text-gray-700">${mentor.bio}</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-2">Expertise</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${mentor.expertise.map(skill => 
+                            `<span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">${skill}</span>`
+                        ).join('')}
+                    </div>
+                </div>
+
+                ${mentor.achievements ? `
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-2">Key Achievements</h4>
+                        <ul class="list-disc list-inside text-gray-700">
+                            ${mentor.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+
+                ${mentor.collegeTips ? `
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-2">💡 College Tips</h4>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-blue-800">${mentor.collegeTips}</p>
+                        </div>
+                    </div>
+                ` : ''}
+
+                <div class="flex gap-3">
+                    <button onclick="connectWithMentor(${mentor.id})" class="btn btn-primary flex-1">
+                        🤝 Connect for Mentorship
+                    </button>
+                    <button onclick="scheduleSession(${mentor.id})" class="btn btn-outline">
+                        📅 Schedule Session
+                    </button>
+                </div>
+            `;
+
+            openModal('mentorModal');
+        }
+
+        // Show career path modal
+        function showCareerPath(pathId) {
+            const path = careerPaths[pathId];
+            if (!path) return;
+
+            const modal = document.getElementById('careerModal');
+            const title = document.getElementById('careerTitle');
+            const details = document.getElementById('careerDetails');
+
+            title.textContent = path.title;
+            
+            details.innerHTML = `
+                <div class="mb-6">
+                    <p class="text-lg text-gray-700 mb-4">${path.description}</p>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p class="text-green-800"><strong>Salary Range:</strong> ${path.salaryRange}</p>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-3">🛣️ Career Roadmap</h4>
+                    <ol class="list-decimal list-inside space-y-2">
+                        ${path.roadmap.map(step => `<li class="text-gray-700">${step}</li>`).join('')}
+                    </ol>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-3">🎯 Key Skills Required</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${path.skills.map(skill => 
+                            `<span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">${skill}</span>`
+                        ).join('')}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-3">🏫 Top Colleges</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        ${path.colleges.map(college => 
+                            `<div class="bg-gray-50 p-2 rounded text-center text-sm">${college}</div>`
+                        ).join('')}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-3">💼 Popular Job Roles</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${path.jobRoles.map(role => 
+                            `<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">${role}</span>`
+                        ).join('')}
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="findMentorsForCareer('${pathId}')" class="btn btn-primary flex-1">
+                        Find Mentors in This Field
+                    </button>
+                    <button onclick="closeModal('careerModal')" class="btn btn-outline">
+                        Close
+                    </button>
+                </div>
+            `;
+
+            openModal('careerModal');
+        }
+
+        // Connect with mentor
+        function connectWithMentor(mentorId) {
+            const mentor = mentors.find(m => m.id === mentorId);
+            alert(`🎉 Connection request sent to ${mentor.name}! They will reach out to you within 24 hours.`);
+            closeModal('mentorModal');
+        }
+
+        // Schedule session
+        function scheduleSession(mentorId) {
+            const mentor = mentors.find(m => m.id === mentorId);
+            alert(`📅 Redirecting to schedule a session with ${mentor.name}...`);
+            closeModal('mentorModal');
+        }
+
+        // Find mentors for specific career
+        function findMentorsForCareer(career) {
+            closeModal('careerModal');
+            
+            // Map career to category
+            const categoryMap = {
+                'software': 'tech',
+                'datascience': 'tech',
+                'business': 'business',
+                'cybersecurity': 'tech',
+                'environment': 'environment',
+                'aerospace': 'aerospace',
+                'uxresearch': 'arts',
+                'gaming': 'gaming'
+            };
+            
+            const category = categoryMap[career];
+            if (category) {
+                // Update filter button
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                const filterButton = document.querySelector(`[data-filter="${category}"]`);
+                if (filterButton) {
+                    filterButton.classList.add('active');
+                }
+                
+                // Filter mentors
+                filterMentors(category);
+                
+                // Scroll to mentors section
+                document.getElementById('mentorGrid').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Modal management
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                const modalId = event.target.id;
+                closeModal(modalId);
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const openModal = document.querySelector('.modal[style*="block"]');
+                if (openModal) {
+                    closeModal(openModal.id);
+                }
+            }
+        });
+
+        // Form Validation
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                const errorDiv = document.getElementById(input.getAttribute('aria-describedby'));
+                
+                if (!input.value.trim()) {
+                    showError(input, errorDiv, 'This field is required');
+                    isValid = false;
+                } else if (input.type === 'email' && !isValidEmail(input.value)) {
+                    showError(input, errorDiv, 'Please enter a valid email address');
+                    isValid = false;
+                } else {
+                    clearError(input, errorDiv);
+                }
+            });
+
+            return isValid;
+        }
+
+        function showError(input, errorDiv, message) {
+            input.classList.add('border-red-500');
+            if (errorDiv) {
+                errorDiv.textContent = message;
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        function clearError(input, errorDiv) {
+            input.classList.remove('border-red-500');
+            if (errorDiv) {
+                errorDiv.textContent = '';
+                errorDiv.classList.add('hidden');
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Form submissions - Add after DOM content loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMentors();
+            setupFilters();
+            setupSearch();
+
+            // Login form
+            const loginForm = document.querySelector('#loginModal form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (validateForm(this)) {
+                        // Handle login submission
+                        alert('🎉 Login successful! Welcome to Gurukul.');
+                        closeModal('loginModal');
+                    }
+                });
+            }
+
+            // Register form
+            const registerForm = document.querySelector('#registerModal form');
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (validateForm(this)) {
+                        // Check password confirmation
+                        const password = this.querySelector('[name="password"]').value;
+                        const confirmPassword = this.querySelector('[name="confirmPassword"]').value;
+                        
+                        if (password !== confirmPassword) {
+                            const confirmInput = this.querySelector('[name="confirmPassword"]');
+                            const errorDiv = document.getElementById('confirm-password-error');
+                            showError(confirmInput, errorDiv, 'Passwords do not match');
+                            return;
+                        }
+                        
+                        // Handle registration submission
+                        alert('🎉 Registration successful! Welcome to Gurukul.');
+                        closeModal('registerModal');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

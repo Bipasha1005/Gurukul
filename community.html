@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join the Gurukul community - Connect with students, alumni, and experts. Participate in discussions, join study groups, and attend events.">
+    <meta name="keywords" content="community, student network, alumni network, study groups, forums, events, collaboration">
+    <meta name="author" content="Gurukul Education Platform">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Community - Connect & Collaborate | Gurukul</title>
+    <style>
+        /* CSS Custom Properties */
+        :root {
+            --primary-color: #04AA6D;
+            --secondary-color: #f44336;
+            --accent-color: #f7dc99;
+            --text-color: #333;
+            --bg-color: rgba(255, 239, 198, 1);
+            --header-bg: #f3f3f3;
+            --footer-bg: rgba(38, 50, 56, 1);
+            --modal-bg: rgba(0, 0, 0, 0.4);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-top: 100px;
+        }
+
+        /* Form Styles */
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border: 2px solid var(--accent-color);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(4, 170, 109, 0.1);
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: var(--bg-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 8px 16px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #038855;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d32f2f;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 14px;
+            min-height: 36px;
+        }
+
+        /* Community Specific Styles */
+        .discussion-card {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .discussion-card:hover {
+            border-left-color: var(--secondary-color);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
+
+        .user-avatar-large {
+            width: 60px;
+            height: 60px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #e3f2fd;
+            color: #1976d2;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .tag-popular {
+            background-color: #fff3e0;
+            color: #f57c00;
+        }
+
+        .tag-urgent {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+
+        .stats-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .event-date {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 8px;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .online-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #4caf50;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-bg);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 4px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            background-color: #f0f0f0;
+            color: #666;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 24px;
+        }
+
+        .sidebar-item {
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 8px;
+        }
+
+        .sidebar-item:hover, .sidebar-item.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 120px;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+
+            .sidebar {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+        }
+
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #038855;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a href="index.html" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 logo">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" 
+                     stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" 
+                     viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="ml-3 text-xl" style="color: var(--primary-color);">Gurukul</span>
+            </a>
+            <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center" 
+                 aria-label="Main navigation">
+                <a href="index.html" class="nav-link mr-5">Home</a>
+                <a href="explore.html" class="nav-link mr-5">Explore</a>
+                <a href="#" class="nav-link mr-5">Profile</a>
+                <a href="community.html" class="nav-link active mr-5">Community</a>
+            </nav>
+            <div class="flex gap-4">
+                <button onclick="openModal('loginModal')" class="btn btn-outline" type="button">Login</button>
+                <button onclick="openModal('registerModal')" class="btn btn-primary" type="button">Join Now</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-16 bg-gradient-to-r from-green-50 to-blue-50">
+            <div class="container mx-auto px-5 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6" style="color: var(--primary-color);">
+                    Join Our Community
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Connect with like-minded learners, share knowledge, participate in discussions, 
+                    and grow together in our vibrant educational community.
+                </p>
+                
+                <!-- Community Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="stats-number">12.5K+</div>
+                        <div class="text-gray-600">Active Members</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-number">850+</div>
+                        <div class="text-gray-600">Study Groups</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-number">2.3K+</div>
+                        <div class="text-gray-600">Discussions</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-number">95+</div>
+                        <div class="text-gray-600">Events/Month</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Community Content -->
+        <section class="py-16">
+            <div class="container mx-auto px-5">
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <!-- Sidebar -->
+                    <div class="lg:col-span-1">
+                        <div class="sidebar">
+                            <h3 class="text-lg font-semibold mb-4">Community</h3>
+                            <div class="sidebar-item active" data-section="discussions">
+                                <span class="flex items-center">
+                                    💬 Discussions
+                                    <span class="ml-auto bg-red-500 text-white text-xs rounded-full px-2">24</span>
+                                </span>
+                            </div>
+                            <div class="sidebar-item" data-section="study-groups">
+                                <span class="flex items-center">
+                                    📚 Study Groups
+                                    <span class="ml-auto bg-blue-500 text-white text-xs rounded-full px-2">8</span>
+                                </span>
+                            </div>
+                            <div class="sidebar-item" data-section="events">
+                                <span class="flex items-center">
+                                    📅 Events
+                                    <span class="ml-auto bg-green-500 text-white text-xs rounded-full px-2">5</span>
+                                </span>
+                            </div>
+                            <div class="sidebar-item" data-section="q-and-a">
+                                <span class="flex items-center">
+                                    ❓ Q&A
+                                    <span class="ml-auto bg-purple-500 text-white text-xs rounded-full px-2">12</span>
+                                </span>
+                            </div>
+                            <div class="sidebar-item" data-section="achievements">
+                                <span class="flex items-center">
+                                    🏆 Achievements
+                                </span>
+                            </div>
+                            <div class="sidebar-item" data-section="leaderboard">
+                                <span class="flex items-center">
+                                    📊 Leaderboard
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="sidebar mt-6">
+                            <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
+                            <button onclick="openModal('registerModal')" class="btn btn-primary w-full mb-3">
+                                ➕ Start Discussion
+                            </button>
+                            <button onclick="openModal('registerModal')" class="btn btn-outline w-full mb-3">
+                                👥 Create Study Group
+                            </button>
+                            <button onclick="openModal('registerModal')" class="btn btn-outline w-full">
+                                ❓ Ask Question
+                            </button>
+                        </div>
+
+                        <!-- Online Members -->
+                        <div class="sidebar mt-6">
+                            <h3 class="text-lg font-semibold mb-4">Online Now</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <img src="https://via.placeholder.com/40x40/4A90E2/FFFFFF?text=SJ" alt="User" class="user-avatar">
+                                    <div class="ml-3 flex-1">
+                                        <div class="text-sm font-medium">Sarah Johnson</div>
+                                        <div class="text-xs text-gray-500">Mentor</div>
+                                    </div>
+                                    <span class="online-indicator"></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <img src="https://via.placeholder.com/40x40/50C878/FFFFFF?text=AK" alt="User" class="user-avatar">
+                                    <div class="ml-3 flex-1">
+                                        <div class="text-sm font-medium">Arjun Kumar</div>
+                                        <div class="text-xs text-gray-500">Student</div>
+                                    </div>
+                                    <span class="online-indicator"></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <img src="https://via.placeholder.com/40x40/FF6B6B/FFFFFF?text=PS" alt="User" class="user-avatar">
+                                    <div class="ml-3 flex-1">
+                                        <div class="text-sm font-medium">Priya Sharma</div>
+                                        <div class="text-xs text-gray-500">Alumni</div>
+                                    </div>
+                                    <span class="online-indicator"></span>
+                                </div>
+                                <div class="text-center mt-4">
+                                    <a href="#" class="text-sm text-blue-600 hover:underline">View all (127 online)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content Area -->
+                    <div class="lg:col-span-3">
+                        <!-- Discussions Section -->
+                        <div id="discussions-section" class="content-section">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold">Latest Discussions</h2>
+                                <select class="border border-gray-300 rounded px-3 py-2">
+                                    <option>Most Recent</option>
+                                    <option>Most Popular</option>
+                                    <option>Most Answered</option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-4">
+                                <!-- Discussion 1 -->
+                                <div class="card discussion-card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/60x60/4A90E2/FFFFFF?text=RK" alt="User" class="user-avatar-large">
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between">
+                                                <div>
+                                                    <h3 class="text-lg font-semibold mb-2">Best practices for Data Science interviews?</h3>
+                                                    <p class="text-gray-600 mb-3">I'm preparing for data science interviews at top tech companies. What are some key topics and practical tips you'd recommend? Looking for insights on both technical and behavioral aspects.</p>
+                                                    <div class="flex flex-wrap gap-2 mb-3">
+                                                        <span class="tag">Data Science</span>
+                                                        <span class="tag">Interviews</span>
+                                                        <span class="tag tag-popular">Career</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                                <div class="flex items-center space-x-4">
+                                                    <span>👤 Rahul Kumar</span>
+                                                    <span>⏰ 2 hours ago</span>
+                                                    <span>💬 23 replies</span>
+                                                    <span>👍 45 likes</span>
+                                                </div>
+                                                <button onclick="openModal('registerModal')" class="btn btn-outline btn-small">Join Discussion</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Discussion 2 -->
+                                <div class="card discussion-card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/60x60/50C878/FFFFFF?text=AP" alt="User" class="user-avatar-large">
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between">
+                                                <div>
+                                                    <h3 class="text-lg font-semibold mb-2">Study group for Cybersecurity certifications</h3>
+                                                    <p class="text-gray-600 mb-3">Starting a study group for CEH and CISSP certifications. We'll meet virtually twice a week to discuss concepts, share resources, and practice together. Anyone interested?</p>
+                                                    <div class="flex flex-wrap gap-2 mb-3">
+                                                        <span class="tag">Cybersecurity</span>
+                                                        <span class="tag">Study Group</span>
+                                                        <span class="tag tag-urgent">Certification</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                                <div class="flex items-center space-x-4">
+                                                    <span>👤 Anita Patel</span>
+                                                    <span>⏰ 5 hours ago</span>
+                                                    <span>💬 18 replies</span>
+                                                    <span>👍 32 likes</span>
+                                                </div>
+                                                <button onclick="openModal('registerModal')" class="btn btn-primary btn-small">Join Group</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Discussion 3 -->
+                                <div class="card discussion-card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/60x60/FF6B6B/FFFFFF?text=MG" alt="User" class="user-avatar-large">
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between">
+                                                <div>
+                                                    <h3 class="text-lg font-semibold mb-2">Transition from Engineering to Product Management</h3>
+                                                    <p class="text-gray-600 mb-3">Currently working as a software engineer but interested in transitioning to product management. Would love to hear from people who made this switch - what skills did you develop and how did you make the transition?</p>
+                                                    <div class="flex flex-wrap gap-2 mb-3">
+                                                        <span class="tag">Product Management</span>
+                                                        <span class="tag">Career Change</span>
+                                                        <span class="tag">Engineering</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                                <div class="flex items-center space-x-4">
+                                                    <span>👤 Maya Gupta</span>
+                                                    <span>⏰ 1 day ago</span>
+                                                    <span>💬 41 replies</span>
+                                                    <span>👍 67 likes</span>
+                                                </div>
+                                                <button class="btn btn-outline btn-small">Join Discussion</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Study Groups Section -->
+                        <div id="study-groups-section" class="content-section hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold">Active Study Groups</h2>
+                                <button onclick="openModal('createGroupModal')" class="btn btn-primary">Create New Group</button>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Study Group 1 -->
+                                <div class="card p-6">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                            <span class="text-2xl">📊</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-semibold">Data Science Bootcamp</h3>
+                                            <p class="text-gray-600 text-sm">45 members • Active</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 mb-4">Comprehensive study group covering machine learning, statistics, and Python programming for data science.</p>
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        <span class="tag">Python</span>
+                                        <span class="tag">Machine Learning</span>
+                                        <span class="tag">Statistics</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-gray-500">Next session: Tomorrow 7 PM</span>
+                                        <button class="btn btn-outline btn-small">Join Group</button>
+                                    </div>
+                                </div>
+
+                                <!-- Study Group 2 -->
+                                <div class="card p-6">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                            <span class="text-2xl">🔐</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-semibold">Cybersecurity Fundamentals</h3>
+                                            <p class="text-gray-600 text-sm">28 members • Active</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 mb-4">Learn the basics of cybersecurity, ethical hacking, and network security in a collaborative environment.</p>
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        <span class="tag">Security</span>
+                                        <span class="tag">Networking</span>
+                                        <span class="tag">Ethical Hacking</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-gray-500">Next session: Friday 8 PM</span>
+                                        <button class="btn btn-outline btn-small">Join Group</button>
+                                    </div>
+                                </div>
+
+                                <!-- Study Group 3 -->
+                                <div class="card p-6">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                            <span class="text-2xl">🎨</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-semibold">UX Design Workshop</h3>
+                                            <p class="text-gray-600 text-sm">32 members • Active</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 mb-4">Hands-on UX design practice with real projects, portfolio reviews, and design thinking sessions.</p>
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        <span class="tag">UX Design</span>
+                                        <span class="tag">Figma</span>
+                                        <span class="tag">Portfolio</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-gray-500">Next session: Saturday 3 PM</span>
+                                        <button class="btn btn-outline btn-small">Join Group</button>
+                                    </div>
+                                </div>
+
+                                <!-- Study Group 4 -->
+                                <div class="card p-6">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                                            <span class="text-2xl">🚀</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-semibold">Startup Founders Circle</h3>
+                                            <p class="text-gray-600 text-sm">19 members • Active</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 mb-4">For aspiring entrepreneurs to discuss business ideas, validate concepts, and support each other's startup journey.</p>
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        <span class="tag">Entrepreneurship</span>
+                                        <span class="tag">Business</span>
+                                        <span class="tag">Networking</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-gray-500">Next session: Wednesday 6 PM</span>
+                                        <button class="btn btn-outline btn-small">Join Group</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Events Section -->
+                        <div id="events-section" class="content-section hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold">Upcoming Events</h2>
+                                <div class="flex gap-3">
+                                    <select class="border border-gray-300 rounded px-3 py-2">
+                                        <option>All Events</option>
+                                        <option>Workshops</option>
+                                        <option>Webinars</option>
+                                        <option>Networking</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="space-y-6">
+                                <!-- Event 1 -->
+                                <div class="card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="event-date">
+                                            <div class="text-sm font-bold">JUL</div>
+                                            <div class="text-2xl font-bold">22</div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between">
+                                                <div>
+                                                    <h3 class="text-xl font-semibold mb-2">AI in Healthcare: Future Opportunities</h3>
+                                                    <p class="text-gray-600 mb-3">Join industry experts as they discuss the latest trends in AI applications for healthcare, career opportunities, and required skills for this emerging field.</p>
+                                                    <div class="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+                                                        <span>📅 July 22, 2025</span>
+                                                        <span>⏰ 7:00 PM - 8:30 PM</span>
+                                                        <span>🎯 Virtual</span>
+                                                        <span>👥 245 registered</span>
+                                                    </div>
+                                                    <div class="flex flex-wrap gap-2 mb-4">
+                                                        <span class="tag">AI</span>
+                                                        <span class="tag">Healthcare</span>
+                                                        <span class="tag">Webinar</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <div class="text-sm text-gray-600">
+                                                    Speaker: Dr. Rajesh Kumar (Microsoft)
+                                                </div>
+                                                <button class="btn btn-primary">Register Now</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Event 2 -->
+                                <div class="card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="event-date">
+                                            <div class="text-sm font-bold">JUL</div>
+                                            <div class="text-2xl font-bold">25</div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between">
+                                                <div>
+                                                    <h3 class="text-xl font-semibold mb-2">Resume Building Workshop</h3>
+                                                    <p class="text-gray-600 mb-3">Learn how to create a compelling resume that stands out to recruiters. Get personalized feedback on your resume from industry professionals.</p>
+                                                    <div class="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+                                                        <span>📅 July 25, 2025</span>
+                                                        <span>⏰ 2:00 PM - 4:00 PM</span>
+                                                        <span>🎯 Virtual</span>
+                                                        <span>👥 189 registered</span>
+                                                    </div>
+                                                    <div class="flex flex-wrap gap-2 mb-4">
+                                                        <span class="tag">Career</span>
+                                                        <span class="tag">Resume</span>
+                                                        <span class="tag">Workshop</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <div class="text-sm text-gray-600">
+                                                    Facilitator: Sarah Johnson (Google)
+                                                </div>
+                                                <button class="btn btn-primary">Register Now</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Event 3 -->
+                                <div class="card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="event-date">
+                                            <div class="text-sm font-bold">JUL</div>
+                                            <div class="text-2xl font-bold">28</div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between">
+                                                <div>
+                                                    <h3 class="text-xl font-semibold mb-2">Networking Night: Connect & Grow</h3>
+                                                    <p class="text-gray-600 mb-3">Meet fellow students, alumni, and industry professionals in our monthly networking event. Build meaningful connections and expand your professional network.</p>
+                                                    <div class="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+                                                        <span>📅 July 28, 2025</span>
+                                                        <span>⏰ 6:00 PM - 8:00 PM</span>
+                                                        <span>🎯 Mumbai</span>
+                                                        <span>👥 156 registered</span>
+                                                    </div>
+                                                    <div class="flex flex-wrap gap-2 mb-4">
+                                                        <span class="tag">Networking</span>
+                                                        <span class="tag">In-Person</span>
+                                                        <span class="tag">Social</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <div class="text-sm text-gray-600">
+                                                    Location: WeWork, Bandra Kurla Complex
+                                                </div>
+                                                <button class="btn btn-primary">Register Now</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Q&A Section -->
+                        <div id="q-and-a-section" class="content-section hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold">Career Q&A Forum</h2>
+                                <div class="flex gap-3">
+                                    <select class="border border-gray-300 rounded px-3 py-2">
+                                        <option>All Categories</option>
+                                        <option>Uncommon Careers</option>
+                                        <option>Career Transitions</option>
+                                        <option>Industry Insights</option>
+                                        <option>Skill Development</option>
+                                    </select>
+                                    <button onclick="openModal('askQuestionModal')" class="btn btn-primary">Ask Question</button>
+                                </div>
+                            </div>
+
+                            <div class="space-y-6">
+                                <!-- Q&A 1 - Forensic Accounting -->
+                                <div class="card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/60x60/8E44AD/FFFFFF?text=RG" alt="User" class="user-avatar-large">
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between mb-3">
+                                                <div>
+                                                    <h3 class="text-lg font-semibold mb-2">How do I become a Forensic Accountant? What's the career path like?</h3>
+                                                    <div class="flex flex-wrap gap-2 mb-3">
+                                                        <span class="tag tag-urgent">Forensic Accounting</span>
+                                                        <span class="tag">Finance</span>
+                                                        <span class="tag">Investigation</span>
+                                                    </div>
+                                                    <p class="text-gray-600 mb-3">I'm fascinated by financial crime investigation and want to combine accounting with detective work. What educational background do I need, and what does the day-to-day work actually involve?</p>
+                                                </div>
+                                                <span class="text-xs text-gray-500">2 hours ago</span>
+                                            </div>
+                                            
+                                            <!-- Answer from Expert -->
+                                            <div class="bg-green-50 p-4 rounded-lg mb-4 border-l-4 border-green-500">
+                                                <div class="flex items-center mb-2">
+                                                    <img src="https://via.placeholder.com/40x40/27AE60/FFFFFF?text=DS" alt="Expert" class="user-avatar mr-3">
+                                                    <div>
+                                                        <span class="font-medium text-green-700">Dr. Sanjay Mehta</span>
+                                                        <span class="text-sm text-green-600 ml-2">✓ Verified Expert - Forensic Accountant</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700 mb-3">Great question! Forensic accounting is an exciting field that combines detective work with financial expertise. Here's the typical path:</p>
+                                                <ul class="list-disc list-inside text-gray-700 space-y-1 mb-3">
+                                                    <li>Start with a Bachelor's in Accounting/Finance + CPA certification</li>
+                                                    <li>Gain 2-3 years traditional accounting experience</li>
+                                                    <li>Pursue CFE (Certified Fraud Examiner) certification</li>
+                                                    <li>Consider Master's in Forensic Accounting or related field</li>
+                                                </ul>
+                                                <p class="text-gray-700">Day-to-day work involves analyzing financial records, interviewing witnesses, preparing legal reports, and sometimes testifying in court. Starting salary ranges from ₹8-15 LPA, but can reach ₹50+ LPA with experience.</p>
+                                            </div>
+
+                                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                                <div class="flex items-center space-x-4">
+                                                    <span>👤 Rohit Gupta</span>
+                                                    <span>👍 23 likes</span>
+                                                    <span>💬 5 more answers</span>
+                                                </div>
+                                                <button class="btn btn-outline btn-small">View All Answers</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q&A 2 - Perfumer Career -->
+                                <div class="card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/60x60/E74C3C/FFFFFF?text=AS" alt="User" class="user-avatar-large">
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between mb-3">
+                                                <div>
+                                                    <h3 class="text-lg font-semibold mb-2">Is perfumery a viable career in India? How do I start as a fragrance creator?</h3>
+                                                    <div class="flex flex-wrap gap-2 mb-3">
+                                                        <span class="tag tag-popular">Perfumery</span>
+                                                        <span class="tag">Fragrance Design</span>
+                                                        <span class="tag">Creative Arts</span>
+                                                    </div>
+                                                    <p class="text-gray-600 mb-3">I have a great sense of smell and love creating unique scent combinations. Is there a formal education path for becoming a perfumer? What are the job prospects in India vs internationally?</p>
+                                                </div>
+                                                <span class="text-xs text-gray-500">6 hours ago</span>
+                                            </div>
+                                            
+                                            <!-- Multiple Answers -->
+                                            <div class="bg-blue-50 p-4 rounded-lg mb-3 border-l-4 border-blue-500">
+                                                <div class="flex items-center mb-2">
+                                                    <img src="https://via.placeholder.com/40x40/3498DB/FFFFFF?text=MP" alt="Expert" class="user-avatar mr-3">
+                                                    <div>
+                                                        <span class="font-medium text-blue-700">Maria Fernandez</span>
+                                                        <span class="text-sm text-blue-600 ml-2">✓ Master Perfumer - Givaudan</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700">Perfumery is definitely viable! India's fragrance market is growing 15% annually. Consider ISIPCA in France or Grasse Institute for formal training. Local opportunities exist with companies like Godrej, but international exposure is valuable.</p>
+                                            </div>
+
+                                            <div class="bg-purple-50 p-4 rounded-lg mb-4 border-l-4 border-purple-500">
+                                                <div class="flex items-center mb-2">
+                                                    <img src="https://via.placeholder.com/40x40/9B59B6/FFFFFF?text=AK" alt="Alumni" class="user-avatar mr-3">
+                                                    <div>
+                                                        <span class="font-medium text-purple-700">Arjun Kapoor</span>
+                                                        <span class="text-sm text-purple-600 ml-2">Alumni - NIFT Graduate turned Perfumer</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700">I transitioned from fashion to fragrance! Started with chemistry background, then apprenticed with a perfumer in Mumbai. The key is building a scent library and understanding raw materials. Happy to connect and share more insights!</p>
+                                            </div>
+
+                                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                                <div class="flex items-center space-x-4">
+                                                    <span>👤 Ananya Singh</span>
+                                                    <span>👍 18 likes</span>
+                                                    <span>💬 7 answers</span>
+                                                </div>
+                                                <button class="btn btn-outline btn-small">View All Answers</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q&A 3 - Voice Acting -->
+                                <div class="card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/60x60/F39C12/FFFFFF?text=VT" alt="User" class="user-avatar-large">
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between mb-3">
+                                                <div>
+                                                    <h3 class="text-lg font-semibold mb-2">Can voice acting be a full-time career? What skills beyond voice are needed?</h3>
+                                                    <div class="flex flex-wrap gap-2 mb-3">
+                                                        <span class="tag">Voice Acting</span>
+                                                        <span class="tag">Entertainment</span>
+                                                        <span class="tag tag-urgent">Media Career</span>
+                                                    </div>
+                                                    <p class="text-gray-600 mb-3">I'm interested in voice acting for animations, audiobooks, and dubbing. Is the Indian voice acting industry large enough to sustain a career? What technical skills should I develop alongside voice training?</p>
+                                                </div>
+                                                <span class="text-xs text-gray-500">1 day ago</span>
+                                            </div>
+                                            
+                                            <div class="bg-orange-50 p-4 rounded-lg mb-4 border-l-4 border-orange-500">
+                                                <div class="flex items-center mb-2">
+                                                    <img src="https://via.placeholder.com/40x40/E67E22/FFFFFF?text=RS" alt="Expert" class="user-avatar mr-3">
+                                                    <div>
+                                                        <span class="font-medium text-orange-700">Rajesh Sharma</span>
+                                                        <span class="text-sm text-orange-600 ml-2">✓ Professional Voice Actor - 15+ years</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700 mb-3">Absolutely viable! The OTT boom has created massive opportunities. Beyond voice training, learn:</p>
+                                                <ul class="list-disc list-inside text-gray-700 space-y-1 mb-3">
+                                                    <li>Audio editing software (Pro Tools, Audacity)</li>
+                                                    <li>Home studio setup and acoustics</li>
+                                                    <li>Multiple language skills (huge advantage in India)</li>
+                                                    <li>Acting fundamentals and emotional range</li>
+                                                </ul>
+                                                <p class="text-gray-700">I earn ₹8-12 lakhs annually working with Netflix, Hotstar, and audiobook publishers. The key is building a diverse portfolio and consistent quality.</p>
+                                            </div>
+
+                                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                                <div class="flex items-center space-x-4">
+                                                    <span>👤 Vikram Thakur</span>
+                                                    <span>👍 31 likes</span>
+                                                    <span>💬 12 answers</span>
+                                                </div>
+                                                <button class="btn btn-outline btn-small">View All Answers</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q&A 4 - Digital Nomad Career -->
+                                <div class="card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/60x60/1ABC9C/FFFFFF?text=NM" alt="User" class="user-avatar-large">
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between mb-3">
+                                                <div>
+                                                    <h3 class="text-lg font-semibold mb-2">What are the most sustainable remote careers for becoming a digital nomad?</h3>
+                                                    <div class="flex flex-wrap gap-2 mb-3">
+                                                        <span class="tag">Digital Nomad</span>
+                                                        <span class="tag tag-popular">Remote Work</span>
+                                                        <span class="tag">Location Independence</span>
+                                                    </div>
+                                                    <p class="text-gray-600 mb-3">I want to travel while working remotely, but not just in tech. What are some unconventional careers that allow true location independence? Looking for perspectives on tax implications and visa considerations too.</p>
+                                                </div>
+                                                <span class="text-xs text-gray-500">3 days ago</span>
+                                            </div>
+                                            
+                                            <div class="bg-teal-50 p-4 rounded-lg mb-3 border-l-4 border-teal-500">
+                                                <div class="flex items-center mb-2">
+                                                    <img src="https://via.placeholder.com/40x40/16A085/FFFFFF?text=LJ" alt="Expert" class="user-avatar mr-3">
+                                                    <div>
+                                                        <span class="font-medium text-teal-700">Lisa Johnson</span>
+                                                        <span class="text-sm text-teal-600 ml-2">✓ Digital Nomad Consultant - 8 years nomadic</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700 mb-2">Great question! Beyond tech, sustainable nomad careers include:</p>
+                                                <ul class="list-disc list-inside text-gray-700 space-y-1 mb-3">
+                                                    <li><strong>Online Language Teaching:</strong> High demand, flexible hours</li>
+                                                    <li><strong>Digital Marketing Consulting:</strong> Results-based, location-agnostic</li>
+                                                    <li><strong>Financial Planning/Investment Advisory:</strong> Virtual meetings are now normalized</li>
+                                                    <li><strong>Content Creation:</strong> YouTube, blogging, course creation</li>
+                                                    <li><strong>Virtual Therapy/Coaching:</strong> Growing acceptance of online sessions</li>
+                                                </ul>
+                                                <p class="text-gray-700">For Indian nomads: consider Dubai/Estonia e-residency for tax optimization, and build 6-month emergency fund before starting.</p>
+                                            </div>
+
+                                            <div class="bg-indigo-50 p-4 rounded-lg mb-4 border-l-4 border-indigo-500">
+                                                <div class="flex items-center mb-2">
+                                                    <img src="https://via.placeholder.com/40x40/6366F1/FFFFFF?text=KP" alt="Alumni" class="user-avatar mr-3">
+                                                    <div>
+                                                        <span class="font-medium text-indigo-700">Karan Patel</span>
+                                                        <span class="text-sm text-indigo-600 ml-2">Alumni - 4 years as Remote Tax Consultant</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700">Been nomadic for 4 years as a tax consultant! Key is building trust with clients first while location-based, then gradually transitioning. Started in Mumbai, now serve clients from Bali. Income has actually increased due to lower living costs!</p>
+                                            </div>
+
+                                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                                <div class="flex items-center space-x-4">
+                                                    <span>👤 Nisha Mehta</span>
+                                                    <span>👍 45 likes</span>
+                                                    <span>💬 19 answers</span>
+                                                </div>
+                                                <button class="btn btn-outline btn-small">View All Answers</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q&A 5 - Food Science Career -->
+                                <div class="card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/60x60/FF6B6B/FFFFFF?text=PT" alt="User" class="user-avatar-large">
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between mb-3">
+                                                <div>
+                                                    <h3 class="text-lg font-semibold mb-2">How lucrative is food science and product development? Any success stories?</h3>
+                                                    <div class="flex flex-wrap gap-2 mb-3">
+                                                        <span class="tag">Food Science</span>
+                                                        <span class="tag">Product Development</span>
+                                                        <span class="tag tag-urgent">Innovation</span>
+                                                    </div>
+                                                    <p class="text-gray-600 mb-3">I'm passionate about creating new food products and understanding food technology. Is this field growing in India? What's the salary potential, and are there opportunities to start food tech companies?</p>
+                                                </div>
+                                                <span class="text-xs text-gray-500">5 days ago</span>
+                                            </div>
+                                            
+                                            <div class="bg-red-50 p-4 rounded-lg mb-4 border-l-4 border-red-500">
+                                                <div class="flex items-center mb-2">
+                                                    <img src="https://via.placeholder.com/40x40/E74C3C/FFFFFF?text=DR" alt="Expert" class="user-avatar mr-3">
+                                                    <div>
+                                                        <span class="font-medium text-red-700">Dr. Ravi Krishnan</span>
+                                                        <span class="text-sm text-red-600 ml-2">✓ Food Scientist - Ex-Nestlé, Now Startup Founder</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700 mb-3">Food science is booming in India! The plant-based food market alone is expected to reach $63 billion by 2030. Here's the reality:</p>
+                                                <ul class="list-disc list-inside text-gray-700 space-y-1 mb-3">
+                                                    <li><strong>Salary Range:</strong> ₹4-8 LPA (fresh) to ₹25-40 LPA (senior roles)</li>
+                                                    <li><strong>Top Employers:</strong> Unilever, Nestlé, Britannia, ITC, and emerging startups</li>
+                                                    <li><strong>Entrepreneurship:</strong> I started my own plant-based protein company after 8 years at Nestlé</li>
+                                                    <li><strong>Growth Areas:</strong> Functional foods, sustainable packaging, alternative proteins</li>
+                                                </ul>
+                                                <p class="text-gray-700">The field combines chemistry, biology, and creativity. Perfect time to enter with India's growing health consciousness and food innovation focus!</p>
+                                            </div>
+
+                                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                                <div class="flex items-center space-x-4">
+                                                    <span>👤 Preet Thapar</span>
+                                                    <span>👍 28 likes</span>
+                                                    <span>💬 9 answers</span>
+                                                </div>
+                                                <button class="btn btn-outline btn-small">View All Answers</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q&A 6 - Career Transition -->
+                                <div class="card p-6">
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/60x60/34495E/FFFFFF?text=SM" alt="User" class="user-avatar-large">
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between mb-3">
+                                                <div>
+                                                    <h3 class="text-lg font-semibold mb-2">Transitioning from Finance to Wildlife Photography at 30 - Am I crazy?</h3>
+                                                    <div class="flex flex-wrap gap-2 mb-3">
+                                                        <span class="tag">Career Change</span>
+                                                        <span class="tag tag-popular">Wildlife Photography</span>
+                                                        <span class="tag">Passion Career</span>
+                                                    </div>
+                                                    <p class="text-gray-600 mb-3">I'm 30, working in investment banking for 7 years, but my heart is in wildlife photography. I've been doing it as a hobby and won some competitions. Is it too late to make this switch? How do wildlife photographers actually make money?</p>
+                                                </div>
+                                                <span class="text-xs text-gray-500">1 week ago</span>
+                                            </div>
+                                            
+                                            <div class="bg-gray-50 p-4 rounded-lg mb-3 border-l-4 border-gray-500">
+                                                <div class="flex items-center mb-2">
+                                                    <img src="https://via.placeholder.com/40x40/2C3E50/FFFFFF?text=AB" alt="Expert" class="user-avatar mr-3">
+                                                    <div>
+                                                        <span class="font-medium text-gray-700">Akash Bhatt</span>
+                                                        <span class="text-sm text-gray-600 ml-2">✓ Professional Wildlife Photographer - National Geographic</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700 mb-2">Not crazy at all! I made a similar transition from engineering at 28. Multiple revenue streams are key:</p>
+                                                <ul class="list-disc list-inside text-gray-700 space-y-1 mb-3">
+                                                    <li><strong>Stock Photography:</strong> ₹50k-2L monthly from Shutterstock, Getty</li>
+                                                    <li><strong>Wildlife Tours:</strong> Leading photography expeditions (₹1-3L per tour)</li>
+                                                    <li><strong>Workshops & Courses:</strong> Teaching photography techniques</li>
+                                                    <li><strong>Brand Partnerships:</strong> Equipment reviews, conservation campaigns</li>
+                                                    <li><strong>Prints & Exhibitions:</strong> Art sales and gallery showings</li>
+                                                </ul>
+                                                <p class="text-gray-700">Start building your portfolio and client base while still employed. Your finance background actually helps with business side!</p>
+                                            </div>
+
+                                            <div class="bg-green-50 p-4 rounded-lg mb-4 border-l-4 border-green-500">
+                                                <div class="flex items-center mb-2">
+                                                    <img src="https://via.placeholder.com/40x40/27AE60/FFFFFF?text=RP" alt="Alumni" class="user-avatar mr-3">
+                                                    <div>
+                                                        <span class="font-medium text-green-700">Ritu Patel</span>
+                                                        <span class="text-sm text-green-600 ml-2">Alumni - Career Transition Coach</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700">I help people with exactly these transitions! Your financial skills are transferable - budget management, client relations, project planning. Consider a gradual transition: part-time photography while reducing finance hours. Build 1-year savings buffer first. Many successful photographers made the switch in their 30s!</p>
+                                            </div>
+
+                                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                                <div class="flex items-center space-x-4">
+                                                    <span>👤 Sanjay Malhotra</span>
+                                                    <span>👍 52 likes</span>
+                                                    <span>💬 23 answers</span>
+                                                </div>
+                                                <button class="btn btn-outline btn-small">View All Answers</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Achievements Section -->
+                        <div id="achievements-section" class="content-section hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold">Community Achievements</h2>
+                            </div>
+                            <div class="text-center py-16">
+                                <div class="text-6xl mb-4">🚧</div>
+                                <h3 class="text-xl font-semibold mb-2">Coming Soon!</h3>
+                                <p class="text-gray-600">We're building an amazing achievements system to recognize your contributions to the community.</p>
+                            </div>
+                        </div>
+
+                        <!-- Leaderboard Section -->
+                        <div id="leaderboard-section" class="content-section hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold">Community Leaderboard</h2>
+                            </div>
+                            <div class="text-center py-16">
+                                <div class="text-6xl mb-4">📊</div>
+                                <h3 class="text-xl font-semibold mb-2">Coming Soon!</h3>
+                                <p class="text-gray-600">Track top contributors, most helpful answers, and community champions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-white body-font" style="background-color: var(--footer-bg);">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap md:text-left text-center">
+                <div class="lg:w-1/4 md:w-1/2 w-full px-4 mb-8">
+                    <h3 class="title-font font-medium text-white tracking-widest text-sm mb-3">COMMUNITY</h3>
+                    <ul class="mb-10" aria-label="Community links">
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Discussions</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Study Groups</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Events</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Q&A Forum</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/4 md:w-1/2 w-full px-4 mb-8">
+                    <h3 class="title-font font-medium text-white tracking-widest text-sm mb-3">SUPPORT</h3>
+                    <ul class="mb-10" aria-label="Support links">
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Help Center</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Community Guidelines</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Report Issues</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Contact Moderators</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/4 md:w-1/2 w-full px-4 mb-8">
+                    <h3 class="title-font font-medium text-white tracking-widest text-sm mb-3">RESOURCES</h3>
+                    <ul class="mb-10" aria-label="Resource links">
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Study Materials</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Career Resources</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Project Collaborations</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">Success Stories</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/4 md:w-1/2 w-full px-4 mb-8">
+                    <h3 class="title-font font-medium text-white tracking-widest text-sm mb-3">GET INVOLVED</h3>
+                    <div class="flex flex-col">
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-300 mb-4">
+                                Join our vibrant community and start connecting
+                            </p>
+                            <div class="flex flex-col gap-3">
+                                <button onclick="openModal('loginModal')" class="btn btn-outline text-center" type="button">
+                                    🔐 Login
+                                </button>
+                                <button onclick="openModal('registerModal')" class="btn btn-primary text-center" type="button">
+                                    📝 Join Community
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm">
+                            Connect with 12.5K+ active members
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="bg-gray-800">
+            <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
+                <div class="flex title-font font-medium items-center md:justify-start justify-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" 
+                         stroke-linejoin="round" stroke-width="2" class="w-8 h-8 text-white p-1 bg-indigo-500 rounded-full" 
+                         viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span class="ml-3 text-xl" style="color: #04AA6D;">Gurukul</span>
+                </div>
+                <p class="text-sm text-gray-400 sm:ml-6 sm:mt-0 mt-4">
+                    © 2024 Gurukul Educational Platform. All rights reserved.
+                </p>
+                <div class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Facebook">
+                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            class="w-5 h-5" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="ml-3 text-gray-400 hover:text-white transition-colors duration-200" aria-label="Twitter">
+                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            class="w-5 h-5" viewBox="0 0 24 24">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="ml-3 text-gray-400 hover:text-white transition-colors duration-200" aria-label="LinkedIn">
+                        <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                            <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                            <circle cx="4" cy="4" r="2" stroke="none"></circle>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="loginTitle" class="text-xl font-semibold">Welcome Back</h2>
+                <button type="button" class="close-btn" onclick="closeModal('loginModal')" aria-label="Close login modal">
+                    ×
+                </button>
+            </div>
+            <form class="modal-body" action="#" method="post" novalidate>
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="login-username" class="block text-sm font-medium mb-2">Username</label>
+                    <input type="text" id="login-username" name="username" class="form-input" 
+                           placeholder="Enter your username" required>
+                </div>
+
+                <div class="mb-6">
+                    <label for="login-password" class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="login-password" name="password" class="form-input" 
+                           placeholder="Enter your password" required>
+                </div>
+
+                <div class="flex items-center justify-between mb-6">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="remember" class="mr-2">
+                        <span class="text-sm">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+                </div>
+
+                <div class="flex gap-3">
+                    <button type="submit" class="btn btn-primary flex-1">Sign In</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('loginModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal" role="dialog" aria-labelledby="registerTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="registerTitle" class="text-xl font-semibold">Join Our Community</h2>
+                <button type="button" class="close-btn" onclick="closeModal('registerModal')" aria-label="Close register modal">
+                    ×
+                </button>
+            </div>
+            <form class="modal-body" action="#" method="post" novalidate>
+                <p class="text-gray-600 mb-6">Connect with thousands of learners and mentors</p>
+                
+                <div class="mb-4">
+                    <label for="register-email" class="block text-sm font-medium mb-2">Email Address</label>
+                    <input type="email" id="register-email" name="email" class="form-input" 
+                           placeholder="Enter your email" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="register-password" class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="register-password" name="password" class="form-input" 
+                           placeholder="Create a password" required>
+                </div>
+
+                <div class="mb-6">
+                    <label for="register-confirm-password" class="block text-sm font-medium mb-2">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" name="confirmPassword" class="form-input" 
+                           placeholder="Confirm your password" required>
+                </div>
+
+                <div class="mb-6">
+                    <label class="flex items-start">
+                        <input type="checkbox" name="terms" required class="mr-2 mt-1">
+                        <span class="text-sm">
+                            I agree to the <a href="#" class="text-blue-600 hover:underline">Community Guidelines</a> 
+                            and <a href="#" class="text-blue-600 hover:underline">Terms of Service</a>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="flex gap-3">
+                    <button type="submit" class="btn btn-primary flex-1">Join Community</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('registerModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Community page functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupSidebar();
+            showSection('discussions');
+        });
+
+        // Sidebar navigation
+        function setupSidebar() {
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all items
+                    sidebarItems.forEach(i => i.classList.remove('active'));
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const section = this.getAttribute('data-section');
+                    if (section) {
+                        showSection(section);
+                    }
+                });
+            });
+        }
+
+        // Show specific section
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Show the requested section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+        }
+
+        // Modal Management
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                modal.setAttribute('aria-hidden', 'false');
+                // Focus on the first input in the modal
+                const firstInput = modal.querySelector('input');
+                if (firstInput) {
+                    setTimeout(() => firstInput.focus(), 100);
+                }
+                // Prevent body scroll
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                modal.setAttribute('aria-hidden', 'true');
+                // Restore body scroll
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                const modalId = event.target.id;
+                closeModal(modalId);
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const openModal = document.querySelector('.modal[style*="block"]');
+                if (openModal) {
+                    closeModal(openModal.id);
+                }
+            }
+        });
+
+        // Placeholder functions for create modals (to be implemented)
+        function openCreateDiscussionModal() {
+            // This would open a modal for creating new discussions
+            alert('Create Discussion feature coming soon!');
+        }
+
+        function openCreateGroupModal() {
+            // This would open a modal for creating new study groups
+            alert('Create Study Group feature coming soon!');
+        }
+
+        function openAskQuestionModal() {
+            // This would open a modal for asking questions
+            alert('Ask Question feature coming soon!');
+        }
+
+        // Form validation functions (simplified)
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = 'red';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            return isValid;
+        }
+
+        // Community interaction functions
+        function joinDiscussion(discussionId) {
+            // Handle joining a discussion
+            console.log('Joining discussion:', discussionId);
+        }
+
+        function joinStudyGroup(groupId) {
+            // Handle joining a study group
+            console.log('Joining study group:', groupId);
+        }
+
+        function registerForEvent(eventId) {
+            // Handle event registration
+            console.log('Registering for event:', eventId);
+        }
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
