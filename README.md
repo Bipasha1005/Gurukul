@@ -18,15 +18,9 @@ Gurukul enables students to:
 
 ## Getting Started
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Bipasha1005/Gurukul.git
-   ```
-2. **Navigate to the project directory**
-   ```bash
-   cd Gurukul
-   ```
-3. **Follow setup instructions** (see specific project files for more details).
+https://gurukul24.netlify.app/
+
+---
 
 ## Contributing
 
@@ -38,4 +32,4 @@ Contributions are welcomed! Please open an issue or submit a pull request to hel
 
 ---
 
-https://github.com/Bipasha1005/GuruKul_SIH2023
+Above was the initial frontent part made by me, then we as a team switched to this project for submission https://github.com/Bipasha1005/GuruKul_SIH2023
