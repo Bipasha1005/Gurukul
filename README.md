@@ -32,7 +32,7 @@ Contributions are welcomed! Please open an issue or submit a pull request to hel
 
 ---
 
-## Disclaimer!!!
+### Disclaimer!!!
 
 Above was the initial frontend part that we were building, but later switched to the below design for submission https://github.com/Bipasha1005/GuruKul_SIH2023
 And then later I customized this as my own.
