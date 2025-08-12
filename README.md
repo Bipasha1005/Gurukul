@@ -32,5 +32,7 @@ Contributions are welcomed! Please open an issue or submit a pull request to hel
 
 ---
 
-#Disclaimer!
-Above was the initial frontent part made by me, but we as a team switched to the below project for submission https://github.com/Bipasha1005/GuruKul_SIH2023
+## Disclaimer!!!
+
+Above was the initial frontend part that we were building, but later switched to the below design for submission https://github.com/Bipasha1005/GuruKul_SIH2023
+And then later I customized this as my own.
